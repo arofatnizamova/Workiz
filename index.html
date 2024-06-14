@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Workiz</title>
+</head>
+
+<body>
+    <iframe id="formIframe" src="form.html" style="width:100%; height:700px; border:none;"></iframe>
+    <script>
+        // Listen for the message from the iframe
+        window.addEventListener('message', function(event) {
+            if (event.origin !== window.location.origin) {
+                return;
+            }
+
+            const formData = event.data;
+
+            // Use Pipedrive API to save the form data
+            const pipedriveApiUrl = 'https://api.pipedrive.com/v1/persons';
+            const apiKey = '035eb6f36f57a5b10c83758fc9d5dab85f4ae098'; // Replace with your actual API key
+
+            fetch(`${pipedriveApiUrl}?api_token=${apiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

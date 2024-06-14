@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form in Iframe</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <form id="contactForm">
+        <div class="container">
+            <div class="form-section">
+                <h2>Client details</h2>
+                <div class="input-group">
+                    <input type="text" placeholder="First name" id="first-name" required>
+                    <input type="text" placeholder="Last name" id="last-name" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" placeholder="Phone" id="phone" required>
+                    <input type="email" placeholder="Email (optional)" id="email">
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Job details</h2>
+                <div class="input-group">
+                    <select id="job-type" required>
+                        <option value="" disabled selected>Job type</option>
+                        <!-- Add job types here -->
+                    </select>
+                    <select id="job-source" required>
+                        <option value="" disabled selected>Job source</option>
+                        <!-- Add job sources here -->
+                    </select>
+                </div>
+                <textarea id="job-description" placeholder="Job description (optional)"></textarea>
+            </div>
+            <div class="form-section">
+                <h2>Service location</h2>
+                <div class="input-group">
+                    <input type="text" placeholder="Address" id="address" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="City" id="city" required>
+                    <input type="text" placeholder="State" id="state" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Zip code" id="zip-code" required>
+                    <select id="area" required>
+                        <option value="" disabled selected>Area</option>
+                        <!-- Add areas here -->
+                    </select>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Scheduled</h2>
+                <div class="input-group">
+                    <input type="date" id="start-date" required>
+                </div>
+                <div class="input-group">
+                    <input type="time" id="start-time" required>
+                    <input type="time" id="end-time" required>
+                </div>
+                <div class="input-group">
+                    <select id="test-select" required>
+                        <option value="" disabled selected>Test select</option>
+                        <!-- Add options here -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                first_name: document.getElementById('first-name').value,
+                last_name: document.getElementById('last-name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                job_type: document.getElementById('job-type').value,
+                job_source: document.getElementById('job-source').value,
+                job_description: document.getElementById('job-description').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip_code: document.getElementById('zip-code').value,
+                area: document.getElementById('area').value,
+                start_date: document.getElementById('start-date').value,
+                start_time: document.getElementById('start-time').value,
+                end_time: document.getElementById('end-time').value,
+                test_select: document.getElementById('test-select').value,
+            };
+
+            // Send the form data to the parent window
+            window.parent.postMessage(formData, window.location.origin);
+        });
+    </script>
+</body>
+
+</html>
